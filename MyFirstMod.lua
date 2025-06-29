@@ -60,7 +60,7 @@ SMODS.Joker{
         "{C:chips}+#2#{} chips"
     }
     },
-    config = {extra = {money = 6, chips = 30}},
+    config = {extra = {money = 6, chips = 30,invis_rounds = 0, total_rounds = 2}},
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = false,
@@ -68,23 +68,39 @@ SMODS.Joker{
     pos = {x = 1, y = 0},
     cost = 3,
     loc_vars = function(self,info_queue,card)
-        return { vars = { card.ability.extra.money, card.ability.extra.chips}}
+        return { vars = { card.ability.extra.money, card.ability.extra.chips,card.ability.extra.invis_rounds,card.ability.extra.total_rounds}}
     end,
-    
+    --Getting money after beating boss
     calc_dollar_bonus = function(self, card)
         if G.GAME.last_blind and G.GAME.last_blind.boss then
 		local bonus = card.ability.extra.money
 		if bonus > 0 then return bonus end
         end
 	end,
+    --
     calculate = function (self,card,context)
+        if context.end_of_round and context.game_over == false and context.main_eval and G.GAME.last_blind.boss and G.GAME.last_blind and not context.blueprint then
+            card.ability.extra.invis_rounds = card.ability.extra.invis_rounds + 1
+            if (card.ability.extra.invis_rounds >= card.ability.extra.total_rounds) then
+                SMODS.add_card{key = "j_my_master_hunter"}
+                card:start_dissolve()
+            end
+            return {
+                message = (card.ability.extra.invis_rounds < card.ability.extra.total_rounds) and
+                    (card.ability.extra.invis_rounds .. '/' .. card.ability.extra.total_rounds) or
+                    localize('k_active_ex'),
+                colour = G.C.FILTER
+            }
+            
+        end
         if context.joker_main then
-            SMODS.add_card{key = "j_my_master_hunter"}
 			return {
 				chip_mod = card.ability.extra.chips,
 				message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
 			}
 		end
+        --
+        
     end
 }
 
@@ -122,6 +138,7 @@ SMODS.Joker{
 				message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
 			}
 		end
+        
     end
 }
 --Propoganda Poster

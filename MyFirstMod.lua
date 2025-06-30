@@ -12,7 +12,7 @@ SMODS.Atlas {
 --prepairing photograph joker for phtotographer
 SMODS.Joker:take_ownership('photograph',{
     add_to_deck = function(self, card, from_debuff)
-		G.GAME.pool_flags.photograph_bought = true
+		G.GAME.pool_flags.photograph_bought = true --if a pool flag is not defined it returns false. N' said that
 	end
     },
     true
@@ -28,8 +28,10 @@ SMODS.Joker{
             "when scored"
             }
     },
+    in_pool = function(self, args)
+        return G.GAME.pool_flags.photograph_bought -- photograph_bought is not defined until photograph is added to deck so it returns false
+    end,
     blueprint_compat = true,
-    yes_pool_flag = 'photograph_bought';
     config = {extra = {xmult = 1.25} },
     rarity = 3,
     atlas = 'ModdedVanilla',
@@ -118,6 +120,9 @@ SMODS.Joker{
     config = {extra = {money = 12, chips = 120}},
     rarity = 3,
     blueprint_compat = true,
+    in_pool = function(self, args)
+        return false
+    end,
     atlas = 'ModdedVanilla',
     pos = {x = 2, y = 0},
     cost = 10,

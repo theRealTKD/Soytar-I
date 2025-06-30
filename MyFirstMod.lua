@@ -84,14 +84,15 @@ SMODS.Joker{
         if context.end_of_round and context.game_over == false and context.main_eval and G.GAME.last_blind.boss and G.GAME.last_blind and not context.blueprint then
             card.ability.extra.invis_rounds = card.ability.extra.invis_rounds + 1
             if (card.ability.extra.invis_rounds >= card.ability.extra.total_rounds) then
-                SMODS.add_card{key = "j_my_master_hunter"}
-                card:start_dissolve()
+                --SMODS.add_card{key = "j_my_master_hunter"}
+                --card:start_dissolve()
+                card:set_ability("j_my_master_hunter")
             end
             return {
-                message = (card.ability.extra.invis_rounds < card.ability.extra.total_rounds) and
-                    (card.ability.extra.invis_rounds .. '/' .. card.ability.extra.total_rounds) or
-                    localize('k_active_ex'),
-                colour = G.C.FILTER
+                --message = (card.ability.extra.invis_rounds < card.ability.extra.total_rounds) and
+                --    (card.ability.extra.invis_rounds .. '/' .. card.ability.extra.total_rounds) or
+                --    localize('k_active_ex'),
+                --colour = G.C.FILTER
             }
             
         end

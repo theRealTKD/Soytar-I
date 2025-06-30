@@ -124,7 +124,8 @@ SMODS.Joker{
         return false
     end,
     atlas = 'ModdedVanilla',
-    pos = {x = 2, y = 0},
+    pos = {x = 0, y = 1},
+    soul_pos = {x=5,y=1},
     cost = 10,
     loc_vars = function(self,info_queue,card)
         return { vars = { card.ability.extra.money, card.ability.extra.chips}}

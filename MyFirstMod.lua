@@ -59,7 +59,7 @@ SMODS.Joker{
         text = {
         "Earn {C:money}$#1#{} after",
         "beating a {C:attention}boss blind{}",
-        "{C:chips}+#2#{} chips and {C:mult}+#3#{}Mult on",
+        "{C:chips}+#2#{} chips and {C:mult}+#3#{} Mult on",
         "{C:attention}boss blinds{}"
     }
     },
@@ -87,7 +87,12 @@ SMODS.Joker{
             if (card.ability.extra.invis_rounds >= card.ability.extra.total_rounds) then
                 --SMODS.add_card{key = "j_my_master_hunter"}
                 --card:start_dissolve()
+                
                 card:set_ability("j_my_master_hunter")
+                return{
+                    message = ("Mastered")
+                }
+                
             end
             return {
                 --message = (card.ability.extra.invis_rounds < card.ability.extra.total_rounds) and
@@ -116,10 +121,11 @@ SMODS.Joker{
         text = {
         "Earn {C:money}$#1#{} after",
         "beating a {C:attention}boss blind{}",
-        "{C:chips}+#2#{} chips on {C:attention}boss blinds{}"
+        "{C:chips}+#2#{} chips and {X:mult,C:white}x#3#{} Mult on",
+        "{C:attention}boss blinds{}"
     }
     },
-    config = {extra = {money = 12, chips = 120}},
+    config = {extra = {money = 12, chips = 120, xmult = 2}},
     rarity = 3,
     blueprint_compat = true,
     in_pool = function(self, args)
@@ -130,7 +136,7 @@ SMODS.Joker{
     soul_pos = {x=5,y=1},
     cost = 10,
     loc_vars = function(self,info_queue,card)
-        return { vars = { card.ability.extra.money, card.ability.extra.chips}}
+        return { vars = { card.ability.extra.money, card.ability.extra.chips, card.ability.extra.xmult}}
     end,
     --
     calc_dollar_bonus = function(self, card)
@@ -142,8 +148,9 @@ SMODS.Joker{
     calculate = function (self,card,context)
         if context.joker_main and G.GAME.last_blind.boss then
 			return {
-				chip_mod = card.ability.extra.chips,
-				message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
+				chips = card.ability.extra.chips,
+				Xmult = card.ability.extra.xmult,
+				--message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
 			}
 		end
         

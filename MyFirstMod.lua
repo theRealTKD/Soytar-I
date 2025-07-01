@@ -20,9 +20,9 @@ SMODS.Joker:take_ownership('photograph',{
 
 --PHOTOGRAPHER
 SMODS.Joker{
-    key = 'photographer',
+    key = 'self_portrait',
     loc_txt = {
-        name = 'Photographer',
+        name = 'Self-Portrait',
         text = {
             "Played{C:attention} face cards{} give {X:mult,C:white}x#1#{} Mult",
             "when scored"
@@ -32,7 +32,7 @@ SMODS.Joker{
         return G.GAME.pool_flags.photograph_bought -- photograph_bought is not defined until photograph is added to deck so it returns false
     end,
     blueprint_compat = true,
-    config = {extra = {xmult = 1.25} },
+    config = {extra = {xmult = 1.50} },
     rarity = 3,
     atlas = 'ModdedVanilla',
     pos = {x = 0,  y = 0},

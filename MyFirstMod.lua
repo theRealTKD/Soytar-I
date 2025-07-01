@@ -59,10 +59,11 @@ SMODS.Joker{
         text = {
         "Earn {C:money}$#1#{} after",
         "beating a {C:attention}boss blind{}",
-        "{C:chips}+#2#{} chips"
+        "{C:chips}+#2#{} chips and {C:mult}+#3#{}Mult on",
+        "{C:attention}boss blinds{}"
     }
     },
-    config = {extra = {money = 6, chips = 30,invis_rounds = 0, total_rounds = 2}},
+    config = {extra = {money = 3, chips = 30,mult = 2,invis_rounds = 0, total_rounds = 2}},
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = false,
@@ -70,7 +71,7 @@ SMODS.Joker{
     pos = {x = 1, y = 0},
     cost = 3,
     loc_vars = function(self,info_queue,card)
-        return { vars = { card.ability.extra.money, card.ability.extra.chips,card.ability.extra.invis_rounds,card.ability.extra.total_rounds}}
+        return { vars = { card.ability.extra.money, card.ability.extra.chips,card.ability.extra.mult,card.ability.extra.invis_rounds,card.ability.extra.total_rounds, }}
     end,
     --Getting money after beating boss
     calc_dollar_bonus = function(self, card)
@@ -96,10 +97,10 @@ SMODS.Joker{
             }
             
         end
-        if context.joker_main then
+        if context.joker_main and G.GAME.last_blind.boss then
 			return {
-				chip_mod = card.ability.extra.chips,
-				message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
+				chips = card.ability.extra.chips,
+				mult = card.ability.extra.mult,
 			}
 		end
         --
@@ -131,7 +132,7 @@ SMODS.Joker{
     loc_vars = function(self,info_queue,card)
         return { vars = { card.ability.extra.money, card.ability.extra.chips}}
     end,
-    
+    --
     calc_dollar_bonus = function(self, card)
         if G.GAME.last_blind and G.GAME.last_blind.boss then
 		local bonus = card.ability.extra.money

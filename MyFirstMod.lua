@@ -18,14 +18,14 @@ SMODS.Joker:take_ownership('photograph',{
     true
 )
 
---PHOTOGRAPHER
+--Self-portrait
 SMODS.Joker{
     key = 'self_portrait',
     loc_txt = {
         name = 'Self-Portrait',
         text = {
-            "Played{C:attention} face cards{} give {X:mult,C:white}x#1#{} Mult",
-            "when scored"
+            "Played{C:attention} face cards{} give",
+            "{X:mult,C:white}x#1#{} Mult when scored"
             }
     },
     in_pool = function(self, args)
@@ -64,7 +64,7 @@ SMODS.Joker{
         "{C:inactive}({C:attention}#4#{C:inactive}/#5# until mastering)"
     }
     },
-    config = {extra = {money = 3, chips = 30,mult = 2,invis_rounds = 0, total_rounds = 3}},
+    config = {extra = {money = 3, chips = 30,mult = 2,invis_rounds = 0, total_rounds = 2}},
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = false,

@@ -60,10 +60,11 @@ SMODS.Joker{
         "Earn {C:money}$#1#{} after",
         "beating a {C:attention}boss blind{}",
         "{C:chips}+#2#{} chips and {C:mult}+#3#{} Mult on",
-        "{C:attention}boss blinds{}"
+        "{C:attention}boss blinds{}",
+        "{C:inactive}({C:attention}#4#{C:inactive}/#5# until mastering)"
     }
     },
-    config = {extra = {money = 3, chips = 30,mult = 2,invis_rounds = 0, total_rounds = 2}},
+    config = {extra = {money = 3, chips = 30,mult = 2,invis_rounds = 0, total_rounds = 3}},
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = false,
@@ -95,10 +96,10 @@ SMODS.Joker{
                 
             end
             return {
-                --message = (card.ability.extra.invis_rounds < card.ability.extra.total_rounds) and
-                --    (card.ability.extra.invis_rounds .. '/' .. card.ability.extra.total_rounds) or
-                --    localize('k_active_ex'),
-                --colour = G.C.FILTER
+                message = (card.ability.extra.invis_rounds < card.ability.extra.total_rounds) and
+                    (card.ability.extra.invis_rounds .. '/' .. card.ability.extra.total_rounds) or
+                    localize('k_active_ex'),
+                colour = G.C.FILTER
             }
             
         end

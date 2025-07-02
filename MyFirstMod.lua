@@ -167,10 +167,10 @@ SMODS.Joker{
                 "only {C:attention}a single face card{},",
                 "{C:mult}destroy{} it and gain {C:mult}+#1# {}Mult.",
                 "{C:inactive}Curently{} {C:mult}+#3#{} {C:inactive}Mult{}",
-                "{C:inactive}Triggers left: #2#{}"
+                "{C:inactive}Until nothing remained but a sketch{}"
             }
     },
-    config = {extra = {mult = 0, trigger = 5, mult_gain = 7}},
+    config = {extra = {mult = 0, trigger = 5, mult_gain = 2}},
     loc_vars = function(self,info_queue,card)
         return { vars = { card.ability.extra.mult_gain, card.ability.extra.trigger, card.ability.extra.mult}}
     end,
@@ -181,7 +181,8 @@ SMODS.Joker{
     atlas = 'ModdedVanilla',
     pos = {x = 2, y = 0},
     calculate = function(self, card, context)
-        if context.discard and not context.blueprint and card.ability.extra.trigger > 0 and
+        if context.discard and not context.blueprint and
+            --card.ability.extra.trigger > 0 and
             context.other_card:is_face() and #context.full_hand == 1 and not context.other_card.debuff then
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain;
             card.ability.extra.trigger = card.ability.extra.trigger - 1

@@ -170,7 +170,7 @@ SMODS.Joker{
                 "{C:inactive}Until nothing remained but a sketch{}"
             }
     },
-    config = {extra = {mult = 0, trigger = 5, mult_gain = 2}},
+    config = {extra = {mult = 0, trigger = 5, mult_gain = 3}},
     loc_vars = function(self,info_queue,card)
         return { vars = { card.ability.extra.mult_gain, card.ability.extra.trigger, card.ability.extra.mult}}
     end,
@@ -186,8 +186,11 @@ SMODS.Joker{
             context.other_card:is_face() and #context.full_hand == 1 and not context.other_card.debuff then
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain;
             card.ability.extra.trigger = card.ability.extra.trigger - 1
+            card:juice_up(0.3, 0.4)
             return {
-                remove = true
+                remove = true,
+                message = "GONE"
+                
             }
         end
         --

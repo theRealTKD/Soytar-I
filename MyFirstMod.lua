@@ -189,5 +189,12 @@ SMODS.Joker{
                 remove = true
             }
         end
+        --
+        if context.joker_main and G.GAME.last_blind.boss then
+			return {
+			    mult = card.ability.extra.mult,
+				--message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
+			}
+		end
     end
 }

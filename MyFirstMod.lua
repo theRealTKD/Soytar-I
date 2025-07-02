@@ -166,7 +166,8 @@ SMODS.Joker{
                 "If a {C:attention}discarded hand{} contains",
                 "only {C:attention}a single face card{},",
                 "{C:mult}destroy{} it and gain {C:mult}+#1# {}Mult.",
-                "{C:inactive}Triggers left:#2# {}.",
+                "{C:inactive}Curently{} {C:mult}+#3#{} {C:inactive}Mult{}",
+                "{C:inactive}Triggers left: #2#{}"
             }
     },
     config = {extra = {mult = 0, trigger = 5, mult_gain = 7}},

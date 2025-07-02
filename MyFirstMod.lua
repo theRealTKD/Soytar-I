@@ -103,6 +103,7 @@ SMODS.Joker{
             }
             
         end
+        --
         if context.joker_main and G.GAME.last_blind.boss then
 			return {
 				chips = card.ability.extra.chips,
@@ -154,36 +155,39 @@ SMODS.Joker{
 				--message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
 			}
 		end
-        
     end
 }
---Propoganda Poster
--- SMODS.Joker{
---     key = 'propoganda_poster',
---     loc_txt = {
---         name = 'Propoganda Poster',
---         text = {
---             "Played{C:attention} face cards{} give {X:mult,C:white}x#1#{} Mult",
---             "when scored"
---             }
---     },
---     config = {extra = {xmult = 1.25} },
---     rarity = 3,
---     atlas = 'ModdedVanilla',
---     pos = {x = 2,  y = 0},
---     cost = 8,
---     loc_vars = function(self,info_queue,card)
---         return { vars = { card.ability.extra.xmult}}
---     end,
---     calculate = function (self,card,context)
---         if context.cardarea == G.play and context.individual then
--- 			if context.other_card:is_face() then
--- 				return {
--- 					message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } },
--- 					Xmult_mod = card.ability.extra.xmult,
--- 					card = context.other_card
--- 				}
--- 			end
--- 		end
---     end
--- }
+
+SMODS.Joker{
+    key = "identikit",
+    loc_txt = {
+        name = 'Identikit',
+        text = {
+                "If a {C:attention}discarded hand{} contains",
+                "only {C:attention}a single face card{},",
+                "{C:mult}destroy{} it and gain {C:mult}+#1# {}Mult.",
+                "{C:inactive}Triggers up to 5 times per run{}.",
+                "Triggers left: "
+            }
+    },
+    config = {extra = {mult = 0, trigger = 5, mult_gain = 7}},
+    loc_vars = function(self,info_queue,card)
+        return { vars = { card.ability.extra.mult_gain, card.ability.extra.trigger, card.ability.extra.mult}}
+    end,
+    rarity = 2,
+    cost = 5,
+    blueprint_compat = true,
+    eternal_compat = true,
+    atlas = 'ModdedVanilla',
+    pos = {x = 2, y = 0},
+    calculate = function(self, card, context)
+        if context.discard and not context.blueprint and card.ability.extra.trigger > 0 and
+            context.other_card:is_face() and #context.full_hand == 1 and not context.other_card.debuff then
+            card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain;
+            card.ability.extra.trigger = card.ability.extra.trigger - 1
+            return {
+                remove = true
+            }
+        end
+    end
+}

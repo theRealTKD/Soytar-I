@@ -166,8 +166,7 @@ SMODS.Joker{
                 "If a {C:attention}discarded hand{} contains",
                 "only {C:attention}a single face card{},",
                 "{C:mult}destroy{} it and gain {C:mult}+#1# {}Mult.",
-                "{C:inactive}Triggers up to 5 times per run{}.",
-                "Triggers left: "
+                "{C:inactive}Triggers left:#2# {}.",
             }
     },
     config = {extra = {mult = 0, trigger = 5, mult_gain = 7}},
@@ -190,7 +189,7 @@ SMODS.Joker{
             }
         end
         --
-        if context.joker_main and G.GAME.last_blind.boss then
+        if context.joker_main then
 			return {
 			    mult = card.ability.extra.mult,
 				--message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }

@@ -208,26 +208,43 @@ SMODS.Joker{
     key = 'old_photo',
     loc_txt = {
         name = 'Old Photo',
-        text = {
-            "Played{C:attention} face cards{} give",
-            "{X:mult,C:white}x#1#{} Mult when scored"
-            }
+        text = {"This Joker gains {X:mult,C:white} X#2# {} Mult",
+                    "per {C:attention}consecutive{} hand played",
+                    "without repeating the previous",
+                    "{C:attention}poker hand",
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",}
     },
     blueprint_compat = true,
-    config = {extra = {chips = 0, chip_gain = 20} },
+    config = {extra = {Xmult = 1, Xmult_gain = 0.1,previous_hand = "a"} },
     rarity = 2,
     atlas = 'ModdedVanilla',
     pos = {x = 3,  y = 0},
-    cost = 6,
+    cost = 7,
     loc_vars = function(self,info_queue,card)
-        return { vars = { card.ability.extra.xmult}}
+        return { vars = { card.ability.extra.Xmult,card.ability.extra.Xmult_gain}}
     end,
     calculate = function (self,card,context)
-        if context.cardarea == G.play and context.individual and context.other_card:is_face() then
-			return {
-				Xmult_mod = card.ability.extra.xmult,
-                message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } }
-			}
-		end
+        
+        if context.before and context.main_eval  then
+            if  context.scoring_name == card.ability.extra.previous_hand then
+                card.ability.extra.Xmult = 1
+                return {
+                    message = localize('k_reset')
+                }
+            else
+                card.ability.extra.Xmult = card.ability.extra.Xmult + card.ability.extra.Xmult_gain
+                return {
+                    message = localize('k_upgrade_ex')
+                }
+            end
+        end
+        if context.after and context.main_eval then
+            card.ability.extra.previous_hand = G.GAME.last_hand_played
+        end
+        if context.joker_main then
+                return {
+                    xmult = card.ability.extra.Xmult
+                }
+        end
     end
 }

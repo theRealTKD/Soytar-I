@@ -9,13 +9,13 @@ SMODS.Atlas {
 	py = 95
 }
 
---prepairing photograph joker for phtotographer
+--prepairing photograph joker for self_portrait
 SMODS.Joker:take_ownership('photograph',{
     add_to_deck = function(self, card, from_debuff)
 		G.GAME.pool_flags.photograph_bought = true --if a pool flag is not defined it returns false. N' said that
 	end
     },
-    true
+    true--when set to true it makes my change silent. so no mod stamp.
 )
 
 --Self-portrait
@@ -198,6 +198,35 @@ SMODS.Joker{
 			return {
 			    mult = card.ability.extra.mult,
 				--message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
+			}
+		end
+    end
+}
+
+--Old Photo
+SMODS.Joker{
+    key = 'old_photo',
+    loc_txt = {
+        name = 'Old Photo',
+        text = {
+            "Played{C:attention} face cards{} give",
+            "{X:mult,C:white}x#1#{} Mult when scored"
+            }
+    },
+    blueprint_compat = true,
+    config = {extra = {chips = 0, chip_gain = 20} },
+    rarity = 2,
+    atlas = 'ModdedVanilla',
+    pos = {x = 3,  y = 0},
+    cost = 6,
+    loc_vars = function(self,info_queue,card)
+        return { vars = { card.ability.extra.xmult}}
+    end,
+    calculate = function (self,card,context)
+        if context.cardarea == G.play and context.individual and context.other_card:is_face() then
+			return {
+				Xmult_mod = card.ability.extra.xmult,
+                message = localize { type = 'variable', key = 'a_xmult', vars = { card.ability.extra.xmult } }
 			}
 		end
     end

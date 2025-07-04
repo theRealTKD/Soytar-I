@@ -212,16 +212,18 @@ SMODS.Joker{
                     "per {C:attention}consecutive{} hand played",
                     "without repeating the previous",
                     "{C:attention}poker hand",
-                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",}
+                    "{C:inactive}(Currently {X:mult,C:white} X#1# {C:inactive} Mult)",
+                    "{C:inactive}(Previous hand: #3#)"
+                }
     },
     blueprint_compat = true,
-    config = {extra = {Xmult = 1, Xmult_gain = 0.1,previous_hand = "a"} },
+    config = {extra = {Xmult = 1, Xmult_gain = 0.1,previous_hand = "none"} },
     rarity = 2,
     atlas = 'ModdedVanilla',
     pos = {x = 3,  y = 0},
     cost = 7,
     loc_vars = function(self,info_queue,card)
-        return { vars = { card.ability.extra.Xmult,card.ability.extra.Xmult_gain}}
+        return { vars = { card.ability.extra.Xmult,card.ability.extra.Xmult_gain,card.ability.extra.previous_hand}}
     end,
     calculate = function (self,card,context)
         

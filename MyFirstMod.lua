@@ -250,3 +250,34 @@ SMODS.Joker{
         end
     end
 }
+
+-- Meddah
+SMODS.Joker {
+    key = "meddah",
+    loc_txt = {
+        name = 'Meddah',
+        text = {"Every played {C:attention}card{}",
+                "permanently gains",
+                "{C:mult}+#1#{} Mult when scored"}
+    },
+    blueprint_compat = true,
+    rarity = 4,
+    cost = 12,
+    atlas = 'ModdedVanilla',
+    pos = { x = 4, y = 0 },
+    soul_pos = {x = 4, y = 1 },
+    config = { extra = { mult = 1, xmult= 1, xmult_gain = 2, retrigger_count = 0 } },
+    loc_vars = function(self, info_queue, card)
+        return { vars = { card.ability.extra.mult,card.ability.extra.xmult, card.ability.extra.Xmult_gain, card.ability.extra.retrigger_count } }
+    end,
+    calculate = function(self, card, context)
+        if context.individual and context.cardarea == G.play then
+            context.other_card.ability.perma_mult = (context.other_card.ability.mult or 0) +
+                card.ability.extra.mult
+            return {
+                message = localize('k_upgrade_ex'),
+                colour = G.C.MULT
+            }
+        end
+    end
+}

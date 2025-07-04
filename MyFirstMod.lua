@@ -258,26 +258,39 @@ SMODS.Joker {
         name = 'Meddah',
         text = {"Every played {C:attention}card{}",
                 "permanently gains",
-                "{C:mult}+#1#{} Mult when scored"}
+                "{C:mult}+#1#{} Mult when scored",
+                "After every [#6#] such repeats, ",
+                "gain {X:mult,C:white}X#3# {} Mult",
+                "{C:inactive}(Currently {X:mult,C:white} X#2# {C:inactive} Mult)"}
     },
     blueprint_compat = true,
     rarity = 4,
-    cost = 12,
+    cost = 20,
     atlas = 'ModdedVanilla',
     pos = { x = 4, y = 0 },
     soul_pos = {x = 4, y = 1 },
-    config = { extra = { mult = 1, xmult= 1, xmult_gain = 2, retrigger_count = 0 } },
+    config = { extra = { mult = 1, xmult= 1, xmult_gain = 2, retrigger_count = 0 ,retrigger = 41, left =41} },
     loc_vars = function(self, info_queue, card)
-        return { vars = { card.ability.extra.mult,card.ability.extra.xmult, card.ability.extra.Xmult_gain, card.ability.extra.retrigger_count } }
+        return { vars = { card.ability.extra.mult,card.ability.extra.xmult, card.ability.extra.xmult_gain, card.ability.extra.retrigger_count, card.ability.extra.retrigger, card.ability.extra.left} }
     end,
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
-            context.other_card.ability.perma_mult = (context.other_card.ability.mult or 0) +
-                card.ability.extra.mult
+            card.ability.extra.retrigger_count = card.ability.extra.retrigger_count + 1
+            context.other_card.ability.perma_mult = (context.other_card.ability.mult or 0) + card.ability.extra.mult
+            card.ability.extra.left = card.ability.extra.retrigger - (card.ability.extra.retrigger_count % card.ability.extra.retrigger)
+            if card.ability.extra.retrigger_count %  card.ability.extra.retrigger == 0 then
+                card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
+            end
             return {
+                
                 message = localize('k_upgrade_ex'),
                 colour = G.C.MULT
             }
+        end
+        if context.joker_main then
+                return {
+                    xmult = card.ability.extra.xmult
+                }
         end
     end
 }

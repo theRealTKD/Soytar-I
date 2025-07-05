@@ -1,18 +1,17 @@
 SMODS.Atlas {
 	-- Key for code to find it with
-	key = "ModdedVanilla",
+	key = "SoytarI",
 	-- The name of the file, for the code to pull the atlas from
-	path = "ModdedVanilla.png",
+	path = "SoytarI.png",
 	-- Width of each sprite in 1x size
 	px = 71,
 	-- Height of each sprite in 1x size
 	py = 95
 }
-
 --prepairing photograph joker for self_portrait
 SMODS.Joker:take_ownership('photograph',{
     add_to_deck = function(self, card, from_debuff)
-		G.GAME.pool_flags.photograph_bought = true --if a pool flag is not defined it returns false. N' said that
+		G.GAME.pool_flags.photograph_bought = true --if a pool flag is not defined it returns false.
 	end
     },
     true--when set to true it makes my change silent. so no mod stamp.
@@ -34,7 +33,7 @@ SMODS.Joker{
     blueprint_compat = true,
     config = {extra = {xmult = 1.50} },
     rarity = 3,
-    atlas = 'ModdedVanilla',
+    atlas = 'SoytarI',
     pos = {x = 0,  y = 0},
     cost = 8,
     loc_vars = function(self,info_queue,card)
@@ -68,7 +67,7 @@ SMODS.Joker{
     rarity = 1,
     blueprint_compat = true,
     eternal_compat = false,
-    atlas = 'ModdedVanilla',
+    atlas = 'SoytarI',
     pos = {x = 1, y = 0},
     cost = 3,
     loc_vars = function(self,info_queue,card)
@@ -85,15 +84,11 @@ SMODS.Joker{
     calculate = function (self,card,context)
         if context.end_of_round and context.game_over == false and context.main_eval and G.GAME.last_blind.boss and G.GAME.last_blind and not context.blueprint then
             card.ability.extra.invis_rounds = card.ability.extra.invis_rounds + 1
-            if (card.ability.extra.invis_rounds >= card.ability.extra.total_rounds) then
-                --SMODS.add_card{key = "j_my_master_hunter"}
-                --card:start_dissolve()
-                
-                card:set_ability("j_my_master_hunter")
+            if (card.ability.extra.invis_rounds >= card.ability.extra.total_rounds) then                
+                card:set_ability("j_str_master_hunter")
                 return{
                     message = ("Mastered")
                 }
-                
             end
             return {
                 message = (card.ability.extra.invis_rounds < card.ability.extra.total_rounds) and
@@ -101,7 +96,6 @@ SMODS.Joker{
                     localize('k_active_ex'),
                 colour = G.C.FILTER
             }
-            
         end
         --
         if context.joker_main and G.GAME.last_blind.boss then
@@ -111,7 +105,6 @@ SMODS.Joker{
 			}
 		end
         --
-        
     end
 }
 
@@ -133,7 +126,7 @@ SMODS.Joker{
     in_pool = function(self, args)
         return false
     end,
-    atlas = 'ModdedVanilla',
+    atlas = 'SoytarI',
     pos = {x = 0, y = 1},
     soul_pos = {x=5,y=1},
     cost = 10,
@@ -178,7 +171,7 @@ SMODS.Joker{
     cost = 5,
     blueprint_compat = true,
     eternal_compat = true,
-    atlas = 'ModdedVanilla',
+    atlas = 'SoytarI',
     pos = {x = 2, y = 0},
     calculate = function(self, card, context)
         if context.discard and not context.blueprint and
@@ -217,7 +210,7 @@ SMODS.Joker{
     blueprint_compat = true,
     config = {extra = {Xmult = 1, Xmult_gain = 0.1,previous_hand = "none"} },
     rarity = 2,
-    atlas = 'ModdedVanilla',
+    atlas = 'SoytarI',
     pos = {x = 3,  y = 0},
     cost = 7,
     loc_vars = function(self,info_queue,card)
@@ -265,10 +258,10 @@ SMODS.Joker {
     blueprint_compat = true,
     rarity = 4,
     cost = 20,
-    atlas = 'ModdedVanilla',
+    atlas = 'SoytarI',
     pos = { x = 4, y = 0 },
     soul_pos = {x = 4, y = 1 },
-    config = { extra = { mult = 2, xmult= 1, xmult_gain = 2, retrigger_count = 0 ,retrigger = 10, left =10} },
+    config = { extra = { mult = 2, xmult= 1, xmult_gain = 1, retrigger_count = 0 ,retrigger = 21, left =21} },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult,card.ability.extra.xmult, card.ability.extra.xmult_gain, card.ability.extra.retrigger_count, card.ability.extra.retrigger, card.ability.extra.left} }
     end,

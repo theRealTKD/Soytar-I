@@ -276,7 +276,7 @@ SMODS.Joker {
     calculate = function(self, card, context)
         if context.individual and context.cardarea == G.play then
             card.ability.extra.retrigger_count = card.ability.extra.retrigger_count + 1
-            context.other_card.ability.perma_mult = (context.other_card.ability.mult or 0) + card.ability.extra.mult
+            context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + card.ability.extra.mult
             card.ability.extra.left = card.ability.extra.retrigger - (card.ability.extra.retrigger_count % card.ability.extra.retrigger)
             if card.ability.extra.retrigger_count %  card.ability.extra.retrigger == 0 then
                 card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain

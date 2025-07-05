@@ -182,7 +182,6 @@ SMODS.Joker{
     pos = {x = 2, y = 0},
     calculate = function(self, card, context)
         if context.discard and not context.blueprint and
-            --card.ability.extra.trigger > 0 and
             context.other_card:is_face() and #context.full_hand == 1 and not context.other_card.debuff then
             card.ability.extra.mult = card.ability.extra.mult + card.ability.extra.mult_gain;
             card.ability.extra.trigger = card.ability.extra.trigger - 1
@@ -197,7 +196,6 @@ SMODS.Joker{
         if context.joker_main then
 			return {
 			    mult = card.ability.extra.mult,
-				--message = localize { type = 'variable', key = 'a_chips', vars = { card.ability.extra.chips } }
 			}
 		end
     end
@@ -226,8 +224,8 @@ SMODS.Joker{
         return { vars = { card.ability.extra.Xmult,card.ability.extra.Xmult_gain,card.ability.extra.previous_hand}}
     end,
     calculate = function (self,card,context)
-        
-        if context.before and context.main_eval  then
+        --
+        if context.before and context.main_eval and not context.blueprint then
             if  context.scoring_name == card.ability.extra.previous_hand then
                 card.ability.extra.Xmult = 1
                 return {
@@ -240,7 +238,8 @@ SMODS.Joker{
                 }
             end
         end
-        if context.after and context.main_eval then
+        --
+        if context.after and context.main_eval and not context.blueprint then
             card.ability.extra.previous_hand = G.GAME.last_hand_played
         end
         if context.joker_main then
@@ -269,7 +268,7 @@ SMODS.Joker {
     atlas = 'ModdedVanilla',
     pos = { x = 4, y = 0 },
     soul_pos = {x = 4, y = 1 },
-    config = { extra = { mult = 1, xmult= 1, xmult_gain = 2, retrigger_count = 0 ,retrigger = 41, left =41} },
+    config = { extra = { mult = 2, xmult= 1, xmult_gain = 2, retrigger_count = 0 ,retrigger = 10, left =10} },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult,card.ability.extra.xmult, card.ability.extra.xmult_gain, card.ability.extra.retrigger_count, card.ability.extra.retrigger, card.ability.extra.left} }
     end,
@@ -278,11 +277,11 @@ SMODS.Joker {
             card.ability.extra.retrigger_count = card.ability.extra.retrigger_count + 1
             context.other_card.ability.perma_mult = context.other_card.ability.perma_mult + card.ability.extra.mult
             card.ability.extra.left = card.ability.extra.retrigger - (card.ability.extra.retrigger_count % card.ability.extra.retrigger)
+            --
             if card.ability.extra.retrigger_count %  card.ability.extra.retrigger == 0 then
                 card.ability.extra.xmult = card.ability.extra.xmult + card.ability.extra.xmult_gain
             end
             return {
-                
                 message = localize('k_upgrade_ex'),
                 colour = G.C.MULT
             }

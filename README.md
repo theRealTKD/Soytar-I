@@ -1,6 +1,7 @@
 # Soytar-I – A Balatro Mod
 
 **Soytar-I** is a Balatro mod that adds **5 new Jokers** with a vanilla-balanced design philosophy. Each Joker introduces fresh gameplay mechanics without disrupting the game's overall balance.
+The word "Soytarı" is a turkish word for "jester"
 
 ## 🎭 Included Jokers
 

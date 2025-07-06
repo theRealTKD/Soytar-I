@@ -8,6 +8,9 @@ SMODS.Atlas {
 	-- Height of each sprite in 1x size
 	py = 95
 }
+
+--Self-portrait
+--#region
 --prepairing photograph joker for self_portrait
 SMODS.Joker:take_ownership('photograph',{
     add_to_deck = function(self, card, from_debuff)
@@ -17,7 +20,7 @@ SMODS.Joker:take_ownership('photograph',{
     true--when set to true it makes my change silent. so no mod stamp.
 )
 
---Self-portrait
+
 SMODS.Joker{
     key = 'self_portrait',
     loc_txt = {
@@ -49,8 +52,10 @@ SMODS.Joker{
 		end
     end
 }
+--#endregion
 
 -- HUNTER
+--#region
 SMODS.Joker{
     key = 'hunter',
     loc_txt = {
@@ -84,7 +89,7 @@ SMODS.Joker{
     calculate = function (self,card,context)
         if context.end_of_round and context.game_over == false and context.main_eval and G.GAME.last_blind.boss and G.GAME.last_blind and not context.blueprint then
             card.ability.extra.invis_rounds = card.ability.extra.invis_rounds + 1
-            if (card.ability.extra.invis_rounds >= card.ability.extra.total_rounds) then                
+            if (card.ability.extra.invis_rounds >= card.ability.extra.total_rounds) then
                 card:set_ability("j_str_master_hunter")
                 return{
                     message = ("Mastered")
@@ -107,8 +112,10 @@ SMODS.Joker{
         --
     end
 }
+--#endregion
 
 --MASTER HUNTER
+--#region
 SMODS.Joker{
     key = 'master_hunter',
     loc_txt = {
@@ -128,7 +135,7 @@ SMODS.Joker{
     end,
     atlas = 'SoytarI',
     pos = {x = 0, y = 1},
-    soul_pos = {x=5,y=1},
+    soul_pos = {x=1,y=1},
     cost = 10,
     loc_vars = function(self,info_queue,card)
         return { vars = { card.ability.extra.money, card.ability.extra.chips, card.ability.extra.xmult}}
@@ -150,7 +157,10 @@ SMODS.Joker{
 		end
     end
 }
+--#endregion
 
+--Identikit
+--#region
 SMODS.Joker{
     key = "identikit",
     loc_txt = {
@@ -193,8 +203,10 @@ SMODS.Joker{
 		end
     end
 }
+--#endregion
 
 --Old Photo
+--#region
 SMODS.Joker{
     key = 'old_photo',
     loc_txt = {
@@ -242,8 +254,10 @@ SMODS.Joker{
         end
     end
 }
+--#endregion
 
 -- Meddah
+--#region
 SMODS.Joker {
     key = "meddah",
     loc_txt = {
@@ -260,7 +274,7 @@ SMODS.Joker {
     cost = 20,
     atlas = 'SoytarI',
     pos = { x = 4, y = 0 },
-    soul_pos = {x = 4, y = 1 },
+    soul_pos = {x = 5, y = 0 },
     config = { extra = { mult = 2, xmult= 1, xmult_gain = 1, retrigger_count = 0 ,retrigger = 21, left =21} },
     loc_vars = function(self, info_queue, card)
         return { vars = { card.ability.extra.mult,card.ability.extra.xmult, card.ability.extra.xmult_gain, card.ability.extra.retrigger_count, card.ability.extra.retrigger, card.ability.extra.left} }
@@ -286,3 +300,4 @@ SMODS.Joker {
         end
     end
 }
+--#endregion

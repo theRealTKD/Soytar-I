@@ -23,7 +23,7 @@ The word "Soytarı" is a turkish word for "jester"
 ## 🧩 Requirements
 
 - **Steammodded** mod loader required to run this mod.
-- Please ensure Steammodded is properly installed - credit is appreciated (see License section).
+- Please ensure Steammodded is properly installed
 
 ## 🛠 Download & Installation
 
